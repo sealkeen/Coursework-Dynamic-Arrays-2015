@@ -3,9 +3,10 @@
 //"Методы сортировки <Массивы динамические двумерные>"
 //Задание на работу: Сортировка элементов всех строк
 //двумерного массива целых чисел в порядке возрастания от центра
-//Created by Silkin Ivan (c) 2015
+//Created by Silkin Ivan (c) December 2015
 
 #include "stdafx.h"
+#include "stdio.h"
 #include "iostream"
 #include "locale.h"
 #include <cmath>
@@ -20,7 +21,7 @@ int main()
 		int n = 0;   //число строк матрицы
 		int m = 0;   //число столбцов матрицы
 
-		bool answer;
+		bool answer = 0;
 
 		setlocale(LC_ALL, "Russian");
 		do 
@@ -43,7 +44,16 @@ int main()
 		Matr MatrixHandler = Matr(n, m);
 
 		cout << "Введите 0 - матрица заполнится сама, введите 1 и вводите числа через enter.\n";
-		cin >> answer;
+		
+		char p {'2'};
+		do {
+			cin.sync();
+			try { cin >> p; }
+			catch (...) {}
+		} while (p > '1' || p < '0');
+
+		answer = p-48;
+
 		if (!answer)
 		{
 			MatrixHandler.InitializeSource();

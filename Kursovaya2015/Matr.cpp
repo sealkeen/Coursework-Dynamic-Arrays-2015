@@ -72,6 +72,7 @@ void Matr::HandInput( )
 //Сортировка элементов массива по возрастанию методом вставки
 void Matr::SortVstavka()
 {
+	boolVal * pointer = 0;
 	if (!allocated) return;
 	singleElem *curElem = 0;
 	singleElem *nextElem = 0;
@@ -91,7 +92,8 @@ void Matr::SortVstavka()
 			double predelSto = 0;
 			//Этот цикл содержит 4 цикла выравнивания и повторяется столь-
 			//ко раз, чтобы все элементы были выровнены по возрастанию
-			for (int l = 0; l <= ((str / 2) - sto + str + 1); l++)
+			const double BORDER = abs((str / 2) - sto + str + 1);
+			for (int l = 0; l <= BORDER; l++)
 			{
 				begSto = 1;
 				(sto / 2 == 0) ? predelSto = sto / 2 : predelSto = (sto / 2) - 1;
@@ -132,6 +134,8 @@ void Matr::SortVstavka()
 							break;
 					}
 				}
+
+
 				begSto = (sto - 2);
 				predelStr = begStr + 1;
 				//2-й цикл выравнивания
@@ -171,6 +175,8 @@ void Matr::SortVstavka()
 				}
 				(str / 2 == 0) ? begStr = (str / 2) : begStr = (str / 2) + 0.5;
 				predelStr = begStr;
+
+
 				//3-й цикл выравнивания
 				for (int curSto = 1; curSto <= predelSto; curSto++)
 				{
@@ -241,6 +247,12 @@ void Matr::SortVstavka()
 				}
 			}
 		}
+
+		if (str % 2 != 0) {
+			*(*(boolMatr + str / 2)) = true;
+			*(*(boolMatr + str / 2) + sto - 1) = true;
+		}
+
 #pragma endregion
 
 #pragma region |sto < str|
