@@ -1,9 +1,9 @@
-//Инициализация матрицы опциональными значениями
 #include "stdafx.h"
 #include "Matr.h"
 #include "iostream"
 using namespace std;
 
+//Конструктор матрицы
 Matr::Matr(int rows, int columns)
 {
 	allocated = false;
@@ -23,7 +23,7 @@ Matr::Matr(int rows, int columns)
 	allocated = true;
 }
 
-
+//Инициализация опциональными значениями
 void Matr::InitializeSource( ) {
 	if (!allocated) return;
 	for (int i = 0; i < str; i++)
@@ -31,6 +31,7 @@ void Matr::InitializeSource( ) {
 			*(*(srcMatr + i) + j) = (str*sto) - (i + j);
 }
 
+//Инициализация булевой сетки
 void Matr::InitializeBool( )
 {
 	if (!allocated) return;
@@ -595,19 +596,6 @@ void Matr::ZanulenieElementov()
 	}
 }
 
-Matr::~Matr()
-{
-	if (!allocated) return;
-	//Освобождение динамической памяти
-	for (int i = 0; i < str; ++i)
-	{
-		delete srcMatr[i];
-		delete boolMatr[i];
-	}
-	delete srcMatr;
-	delete boolMatr;
-}
-
 //Опциональное выведение на экран консоли 
 void Matr::OutputBoolMatr()
 {
@@ -638,4 +626,18 @@ void Matr::OutputSourceMatr()
 		}
 		cout << "\n\n";
 	}
+}
+
+//Деструктор
+Matr::~Matr()
+{
+	if (!allocated) return;
+	//Освобождение динамической памяти
+	for (int i = 0; i < str; ++i)
+	{
+		delete srcMatr[i];
+		delete boolMatr[i];
+	}
+	delete srcMatr;
+	delete boolMatr;
 }
