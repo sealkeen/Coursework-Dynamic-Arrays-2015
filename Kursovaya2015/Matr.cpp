@@ -1,7 +1,5 @@
 #include "stdafx.h"
 #include "Matr.h"
-#include "iostream"
-using namespace std;
 
 // онструктор матрицы
 Matr::Matr(int rows, int columns)
@@ -78,7 +76,7 @@ void Matr::SortVstavka()
 	singleElem *curElem = 0;
 	singleElem *nextElem = 0;
 
-	if ((str > 3) && (sto >3) && (str <= 20))
+	if ((str >= 3) && (sto >= 3) && (str <= 500))
 	{
 #pragma region |sto > str| 
 		//—оответственно, если количество столбцов больше строк :
@@ -86,7 +84,6 @@ void Matr::SortVstavka()
 		if (sto > str)
 		{
 			singleElem curTemp;
-			int begSto = 0;
 			int begStr = 0;
 			int curStr = 0;
 			double predelStr = 0;
@@ -96,13 +93,13 @@ void Matr::SortVstavka()
 			const double BORDER = abs((str / 2) - sto + str + 1);
 			for (int l = 0; l <= BORDER; l++)
 			{
-				begSto = 1;
-				(sto / 2 == 0) ? predelSto = sto / 2 : predelSto = (sto / 2) - 1;
-				(str / 2 == 0) ? begStr = (str / 2) + 1 : begStr = (str / 2);
+				(sto % 2 == 0) ? predelSto = sto / 2 : predelSto = (sto / 2) - 1;
+				(str % 2 == 0) ? begStr = (str / 2) - 1 : begStr = (str / 2);
 				predelStr = begStr + 1;
+				int replacingLevel = begStr;
 
 				//1-й цикл выравнивани€
-				for (int curSto = begSto;
+				for (int curSto = 0;
 					curSto <= predelSto; curSto++)
 				{
 					curStr = begStr;
@@ -124,23 +121,24 @@ void Matr::SortVstavka()
 							*curElem = *nextElem;
 							*nextElem = curTemp;
 						}
-						*curBool = true;
+						if (curStr <= replacingLevel)
+							*curBool = true;
 						if (((curStr - 1) >= 0) &&
 							((curStr + 1) <= str - 1))
 						{
-							*nextBool = true;
+							//*nextBool = sto%2 == 0 ? true : false;
 						}
 						curStr--;
 						if ((curSto > (sto / 2 + 1)))
 							break;
 					}
+					replacingLevel++;
 				}
+				replacingLevel = begStr;
 
-
-				begSto = (sto - 2);
 				predelStr = begStr + 1;
 				//2-й цикл выравнивани€
-				for (int curSto = begSto; curSto > predelSto; curSto--)
+				for (int curSto = sto-1; curSto > predelSto; curSto--)
 				{
 					curStr = begStr;
 					if (predelStr >0)
@@ -163,28 +161,29 @@ void Matr::SortVstavka()
 							*curElem = *nextElem;
 							*nextElem = curTemp;
 						}
-						*curBool = true;
+						if (curStr <= replacingLevel)
+							*curBool = true;
 						if (((curStr - 1) >= 0) &&
 							((curStr + 1) <= str - 1))
 						{
-							*nextBool = true;
+							//*nextBool = sto % 2 == 0 ? true : false;
 						}
 						curStr--;
 						if ((curSto < (sto / 2 - 1)))
 							break;
 					}
+					replacingLevel++;
 				}
-				(str / 2 == 0) ? begStr = (str / 2) : begStr = (str / 2) + 0.5;
+				(str % 2 == 0) ? begStr = (str / 2) : begStr = (str / 2)+1;
 				predelStr = begStr;
 
-
+				replacingLevel = begStr;
 				//3-й цикл выравнивани€
-				for (int curSto = 1; curSto <= predelSto; curSto++)
+				for (int curSto = (str % 2 == 0) ? 0 : 1; curSto <= predelSto; curSto++)
 				{
-					curStr = begStr + 1;
+					curStr = begStr;
 					if (predelStr < str - 1)
 						predelStr++;
-
 					while (curStr <= predelStr)
 					{
 						boolVal *curBool =
@@ -206,18 +205,25 @@ void Matr::SortVstavka()
 							*curElem = *nextElem;
 							*nextElem = curTemp;
 						}
-						*curBool = true;
+
+						if (curStr<=replacingLevel || curStr == begStr) {
+							*curBool = true;
+						}
+						
 						curStr++;
 						if ((curSto >(sto / 2 + 1)))
 							break;
 					}
+					replacingLevel++;
 				}
 				predelStr = begStr;
+
+				replacingLevel = begStr;
 				//4-й цикл выравнивани€
-				for (int curSto = sto - 2;
+				for (int curSto = str%2 == 0? sto - 1 : sto - 2;
 					curSto > predelSto; curSto--)
 				{
-					curStr = begStr + 1;
+					curStr = begStr;
 					if (predelStr < str - 1)
 						predelStr++;
 
@@ -240,12 +246,14 @@ void Matr::SortVstavka()
 							*curElem = *nextElem;
 							*nextElem = curTemp;
 						}
-						*curBool = true;
+						if(curStr<=replacingLevel)
+							*curBool = true;
 						curStr++;
 						if ((curSto < ((sto / 2 - 1))))
 							break;
 					}
-				}
+					replacingLevel++;
+				}//4 end
 			}
 		}
 

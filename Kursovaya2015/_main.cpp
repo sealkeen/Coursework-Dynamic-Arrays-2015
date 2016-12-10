@@ -1,3 +1,4 @@
+
 //Определение : 
 //Курсовая работа на тему
 //"Методы сортировки <Массивы динамические двумерные>"
@@ -6,10 +7,6 @@
 //Created by Silkin Ivan (c) December 2015
 
 #include "stdafx.h"
-#include "stdio.h"
-#include "iostream"
-#include "locale.h"
-#include <cmath>
 #include "Matr.h"
 
 using namespace std;
@@ -64,7 +61,7 @@ int main()
 		}
 		MatrixHandler.InitializeBool();
 
-		if (n <= 20)
+		if (n <= 500)
 		{
 			cout << "Исходная матрица:\n";
 			MatrixHandler.OutputSourceMatr();

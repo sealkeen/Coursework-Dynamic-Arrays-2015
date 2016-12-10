@@ -1,13 +1,16 @@
-#pragma once
-//Определяем тип данных "матрица целых чисел"
-typedef int singleElem;  	//определение типа элементов массива
-typedef singleElem *pStringOfElements;  	//определение типа "указатель на singleElem"
+#include "stdafx.h"
+#include "iostream"
+using namespace std;
+
+										//Определяем тип данных "матрица целых чисел"
+typedef int singleElem;  				//определение типа элементов массива
+typedef singleElem *pStringOfElements;  //определение типа "указатель на singleElem"
 typedef pStringOfElements *pSourceMatr;	//определение типа "указатель на указатель на singleElem"
 
-						///Определяем дополнительную булевую матрицу, которая служит для определения
-						///того, какие элементы надо занулить (которые программа не должна сортировать)
-typedef bool boolVal;  		//определение типа элементов массива
-typedef boolVal *pBoolStr;  	//определение типа "указатель на boolVal"
+									//Определяем дополнительную булевую матрицу, которая служит для определения
+									//того, какие элементы надо занулить (которые программа не должна сортировать)
+typedef bool boolVal;  				//определение типа элементов массива
+typedef boolVal *pBoolStr;  		//определение типа "указатель на boolVal"
 typedef pBoolStr *pBoolMatr;		//определение типа "указатель на указатель на boolVal"
 
 
@@ -23,12 +26,11 @@ public :
 	void Matr::OutputSourceMatr();
 	void Matr::OutputBoolMatr();
 	void Matr::ZanulenieElementov(); 
-	bool allocated;
 private :
 	int str; 
 	int sto;
 	pBoolMatr boolMatr;
 	pSourceMatr srcMatr;
-
+	bool allocated;
 };
 
